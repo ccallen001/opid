@@ -126,17 +126,21 @@ export default {
   mounted() {
     const _this = this;
 
-    _this.$refs.logo.style.opacity = 1;
+    window.setTimeout(() => {
+      _this.$refs.logo.style.opacity = 1;
 
-    _this.$refs.backgroundVideo.oncanplaythrough = () => {
-      _this.$refs.logo.style.opacity = 0;
-      _this.$refs.backgroundVideo.style.opacity = 1;
+      _this.$refs.backgroundVideo.oncanplaythrough = () => {
+        _this.$refs.logo.style.opacity = 0;
+        _this.$refs.backgroundVideo.style.opacity = 1;
 
-      window.setTimeout(() => {
-        _this.backgroundVideoHasLoaded = true;
-        _this.logoShouldShow = false;
-      }, 2000);
-    };
+        window.setTimeout(() => {
+          _this.backgroundVideoHasLoaded = true;
+          window.setTimeout(() => {
+            _this.logoShouldShow = false;
+          }, 2000);
+        }, 2000);
+      };
+    }, 1);
   },
   methods: {
     leaveTo(url) {
