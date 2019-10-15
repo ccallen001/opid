@@ -1,6 +1,6 @@
 <template>
   <v-app class="App">
-    <video class="background-video" autoplay loop muted>
+    <video class="background-video" ref="backgroundVideo" autoplay loop muted>
       <source src="@/assets/videos/background-video.mp4" />
     </video>
 
@@ -42,7 +42,8 @@
       </ul>
     </nav>
 
-    <v-content>
+    <img class="logo" ref="logo" src="@/assets/images/logo.jpg" v-if="logoShouldShow"/>
+    <v-content v-if="backgroundVideoHasLoaded">
       <router-view />
     </v-content>
   </v-app>
@@ -60,7 +61,10 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%) scale(5);
+    width: 50vw;
+    opacity: 0;
+    transition: opacity 2000ms linear;
   }
 
   .app-nav {
@@ -70,7 +74,7 @@
     z-index: 1;
     display: flex;
     justify-content: space-between;
-    padding: 0 16px;
+    padding: 0 8px 0 16px;
     width: 100%;
     height: 64px;
 
@@ -96,12 +100,42 @@
       align-items: center;
     }
   }
+
+  .logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 50vw;
+    transition: opacity 2000ms linear;
+  }
 }
 </style>
 
 <script>
 export default {
   name: "App",
+  data() {
+    return {
+      logoShouldShow: true,
+      backgroundVideoHasLoaded: false
+    };
+  },
+  mounted() {
+    const _this = this;
+
+    _this.$refs.backgroundVideo.oncanplaythrough = () => {
+      window.setTimeout(() => {
+        _this.$refs.logo.style.opacity = 0;
+        _this.$refs.backgroundVideo.style.opacity = 1;
+
+        window.setTimeout(() => {
+          _this.backgroundVideoHasLoaded = true;
+          _this.logoShouldShow = false;
+        }, 2000);
+      }, 2000);
+    };
+  },
   methods: {
     leaveTo(url) {
       window.open(url);
