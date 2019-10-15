@@ -74,7 +74,7 @@
     z-index: 1;
     display: flex;
     justify-content: space-between;
-    padding: 0 8px 0 16px;
+    padding: 0 4px 0 16px;
     width: 100%;
     height: 64px;
 
@@ -107,6 +107,8 @@
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     width: 50vw;
+    border-radius: 8px;
+    opacity: 0;
     transition: opacity 2000ms linear;
   }
 }
@@ -123,6 +125,8 @@ export default {
   },
   mounted() {
     const _this = this;
+
+    _this.$refs.logo.style.opacity = 1;
 
     _this.$refs.backgroundVideo.oncanplaythrough = () => {
       _this.$refs.logo.style.opacity = 0;
