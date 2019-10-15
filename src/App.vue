@@ -126,21 +126,18 @@ export default {
   mounted() {
     const _this = this;
 
-    window.setTimeout(() => {
-      _this.$refs.logo.style.opacity = 1;
+    _this.$refs.logo.style.opacity = 1;
 
-      _this.$refs.backgroundVideo.oncanplaythrough = () => {
-        _this.$refs.logo.style.opacity = 0;
+    _this.$refs.backgroundVideo.oncanplaythrough = () => {
+      _this.$refs.logo.style.opacity = 0;
+
+      window.setTimeout(() => {
+        _this.backgroundVideoHasLoaded = true;
         _this.$refs.backgroundVideo.style.opacity = 1;
 
-        window.setTimeout(() => {
-          _this.backgroundVideoHasLoaded = true;
-          window.setTimeout(() => {
-            _this.logoShouldShow = false;
-          }, 2000);
-        }, 2000);
-      };
-    }, 1);
+        _this.logoShouldShow = false;
+      }, 2000);
+    };
   },
   methods: {
     leaveTo(url) {
