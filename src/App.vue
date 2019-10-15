@@ -42,7 +42,7 @@
       </ul>
     </nav>
 
-    <img class="logo" ref="logo" src="@/assets/images/logo.jpg" v-if="logoShouldShow"/>
+    <img class="logo" ref="logo" src="@/assets/images/logo.jpg" v-if="logoShouldShow" />
     <v-content v-if="backgroundVideoHasLoaded">
       <router-view />
     </v-content>
@@ -61,7 +61,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%) scale(5);
+    transform: translateX(-50%) translateY(-50%) scale(8);
     width: 50vw;
     opacity: 0;
     transition: opacity 2000ms linear;
@@ -125,14 +125,12 @@ export default {
     const _this = this;
 
     _this.$refs.backgroundVideo.oncanplaythrough = () => {
-      window.setTimeout(() => {
-        _this.$refs.logo.style.opacity = 0;
-        _this.$refs.backgroundVideo.style.opacity = 1;
+      _this.$refs.logo.style.opacity = 0;
+      _this.$refs.backgroundVideo.style.opacity = 1;
 
-        window.setTimeout(() => {
-          _this.backgroundVideoHasLoaded = true;
-          _this.logoShouldShow = false;
-        }, 2000);
+      window.setTimeout(() => {
+        _this.backgroundVideoHasLoaded = true;
+        _this.logoShouldShow = false;
       }, 2000);
     };
   },
