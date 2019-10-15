@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "avgardm";
+  font-weight: medium;
+  src: url("./assets/fonts/avgardm.ttf");
+}
+
+@font-face {
+  font-family: "avgardmi";
+  font-style: italic;
+  font-weight: medium;
+  src: url("./assets/fonts/avgardmi.ttf");
+}
+
+@font-face {
+  font-family: "avgardn";
+  font-weight: normal;
+  src: url("./assets/fonts/avgardn.ttf");
+}
+
+@font-face {
+  font-family: "avgardni";
+  font-style: italic;
+  font-weight: normal;
+  src: url("./assets/fonts/avgardni.ttf");
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  padding: 0 !important;
+
+  li {
+    list-style-type: none;
+  }
+}
+
+.views {
+  padding: 100px 16px 4px;
+  height: 100%;
+  font-family: avgardn;
+}
