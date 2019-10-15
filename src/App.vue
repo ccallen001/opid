@@ -4,7 +4,7 @@
       <source src="@/assets/videos/background-video.mp4" />
     </video>
 
-    <nav class="app-nav">
+    <nav class="app-nav" v-if="backgroundVideoHasLoaded">
       <ul class="nav-links-list">
         <li>
           <router-link to="/">Home</router-link>
@@ -42,6 +42,7 @@
       </ul>
     </nav>
 
+    <h4 class="opid-text" ref="opidText" v-if="opidTextShouldShow">Opid Media</h4>
     <img class="logo" ref="logo" src="@/assets/images/logo.jpg" v-if="logoShouldShow" />
     <v-content v-if="backgroundVideoHasLoaded">
       <router-view />
@@ -101,13 +102,23 @@
     }
   }
 
+  .opid-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    font-family: avgardmi;
+    font-size: 32px;
+    opacity: 1;
+    transition: opacity 2000ms linear;
+  }
+
   .logo {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     width: 50vw;
-    border-radius: 8px;
     opacity: 0;
     transition: opacity 4000ms linear;
   }
@@ -119,6 +130,7 @@ export default {
   name: "App",
   data() {
     return {
+      opidTextShouldShow: true,
       logoShouldShow: true,
       backgroundVideoHasLoaded: false
     };
@@ -126,17 +138,23 @@ export default {
   mounted() {
     const _this = this;
 
-    _this.$refs.logo.style.opacity = 1;
+    _this.$refs.logo.onload = () => {
+      _this.$refs.opidText.style.opacity = 0;
+      _this.$refs.logo.style.opacity = 1;
+
+      window.setTimeout(() => {
+        _this.opidTextShouldShow = false;
+      }, 4000);
+    };
 
     _this.$refs.backgroundVideo.oncanplaythrough = () => {
       _this.$refs.logo.style.opacity = 0;
+      _this.backgroundVideoHasLoaded = true;
+      _this.$refs.backgroundVideo.style.opacity = 1;
 
       window.setTimeout(() => {
-        _this.backgroundVideoHasLoaded = true;
-        _this.$refs.backgroundVideo.style.opacity = 1;
-
         _this.logoShouldShow = false;
-      }, 2000);
+      }, 8000);
     };
   },
   methods: {
