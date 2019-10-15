@@ -74,7 +74,7 @@
     z-index: 1;
     display: flex;
     justify-content: space-between;
-    padding: 0 4px 0 16px;
+    padding: 0 16px;
     width: 100%;
     height: 64px;
 
@@ -109,7 +109,7 @@
     width: 50vw;
     border-radius: 8px;
     opacity: 0;
-    transition: opacity 2000ms linear;
+    transition: opacity 4000ms linear;
   }
 }
 </style>
